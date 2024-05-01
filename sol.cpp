@@ -15,9 +15,11 @@ class Reader {
 
     int concurrent_sum() {
         //this will send each file to a new thread
+        //each file sum will be computed in parallel threads
         this->total_sum = 0;
         for(int i=1;i<=this->total_files;i++) {
             string fname = get_file_name(i);
+           
             threads.push_back(thread(&Reader::work, this, fname));
         }
         //wait for threads to complete
@@ -32,7 +34,7 @@ class Reader {
         this->total_sum = 0;
          for(int i=1;i<=this->total_files;i++) {
             string fname = get_file_name(i);
-           work(this, fname);
+            work(this, fname);
         }
         return total_sum;
     }
@@ -42,6 +44,7 @@ class Reader {
     int total_sum;
     std::mutex m;
     vector<thread> threads;
+    vector<ifstream> files;
     string get_file_name(int i) {
         //gets a file name in format ./[i].txt
         string name = to_string(i) + ".txt";
@@ -61,7 +64,7 @@ class Reader {
         while(f >> a) {
             tot += a;
         }
-        f.close();
+        //f.close();
         //total sum from file will be summed to to total sum
         //which should be guarded by a mutex
         r->m.lock();

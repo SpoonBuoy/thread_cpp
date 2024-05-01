@@ -11,7 +11,7 @@ int main() {
         string fname = to_string(i) + ".txt";
         file.open(fname, ios::out);
         if(file) {
-            for(int j=1;j<=300;j++) {
+            for(int j=1;j<=1000;j++) {
                 file<<j<<endl;
             }
         }
