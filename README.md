@@ -4,3 +4,9 @@
 - `make gen`
 
 ### Running Solution
+- `make run`
+
+### Clean Up
+- `make clean`
+
+
